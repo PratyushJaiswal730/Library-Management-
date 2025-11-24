@@ -1,0 +1,91 @@
+# Adding new book to the collection
+def add():
+    id=int(input("Enter the id of the book: "))
+    t=input("Enter the title of the book : ")
+    a=input ("Enter the name of the author : ")
+    c=int(input("Enter the number of copies of the book : "))
+    collection.setdefault(id,{"title":t,"author":a,"copies":c})
+    for id, value in collection.items():
+        print (id," : ",value)
+
+# checking book availability
+def check():
+    book_id=input("Enter the id of the book you want to check: ")
+    if book_id in collection:
+        print (book_id," is available is available in the library")
+    else :
+        print (book_id," is available NOT is available in the library")
+
+#Listing all the books available
+def list_all():
+    print("----- Printing the details of all books ---")
+    for id ,details in collection.items():
+        print(id,":",details)
+
+# retriving the books author's name using books id
+def get_author():
+    id=int(input ("Enter the id of the book you want to get the author's name: "))
+    if id in collection:
+        print (collection[id]["author"])
+    else :
+        print ("Product not found! ")
+
+
+# updating the number of copies
+def update_copies():
+    id=int(input("Enter the book id: "))
+    if id in collection:
+        print ('''1. Increase Stock
+            2. Decrease the Stock''')
+        choice =int (input ("Enter the choice :"))
+        q=int (input ("Enter the quantities: "))
+        if choice ==1:
+            collection[id]["copies"]+=q
+        elif choice==2:
+            collection[id]["copies"]-=q
+        else:
+            print ('Invalid Choice!!!')
+        print ("updated stock:",collection[id]["copies"])
+
+    else:
+        print ('Product not found .....')
+
+    id=int(input ("Enter the book id to remove : "))
+    if collection.pop(id,None):
+        print ("-----product removed successfully -----")
+    else:
+        print ("Product not found !!!")
+    print ("\n--- Updated Collection ---")
+    print (collection)
+
+
+collection={
+    101:{"tilte":"Angles And Demons","author": "Dan Brown","copies":10},
+    102:{"tilte":"Digital Fortress","author": "Dan Brown","copies":10}
+}
+
+print ('''---Welcome to your library---
+            1.Add a book in the Library
+            2.Check the availability of using book ID
+            3.List all the books available.
+            4.Get the author of a particular book using ID.
+            5.Update the number of copies present in the Library.
+            6.Break''')
+while True:
+    choice =int(input ("Enter your choice number : "))
+    if choice ==1:
+        add()
+    elif choice==2:
+        check()
+    elif choice==3:
+        list_all()
+    elif choice==4:
+        get_author()
+    elif choice==5:
+        update_copies()
+    elif choice ==6:
+        break
+    else :
+        print ('''!!!!INVALID CHOICE !!!!
+                        PLEASE TRY AGAIN.....''')
+
